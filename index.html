@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Twizie | Rosette Crochet</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="logo">
+        <span class="logo-rose">✿</span> Twizie <span class="logo-divider">|</span> Rosette Crochet
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#products">Shop</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-sub">Welcome to Knitzie Crochet</p>
+      <h1 class="hero-title">Custom Crochet<br /><em>Crafted with Personal Care</em></h1>
+      <p class="hero-desc">High-quality, thoughtful handmade pieces designed just for you.</p>
+      <a href="#products" class="btn btn-primary">Shop the Collection</a>
+    </div>
+    <div class="hero-scroll-hint">&#8595;</div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text fade-in">
+          <span class="section-tag">About Me</span>
+          <h2>I'm Twizie,<br />Behind Knitzie Crochet</h2>
+          <p>Knitzie Crochet was born out of my passion for creating beautiful, thoughtful handmade pieces. I take the time to truly understand what you need and bring your vision to life seamlessly.</p>
+          <p>When you work with me, you're not just another ticket. I handle every single detail myself to ensure you get an effortless, royal-treatment experience from start to finish. Every project is a labor of love.</p>
+          <a href="#contact" class="btn btn-outline">Let's Work Together</a>
+        </div>
+        <div class="about-visual fade-in">
+          <div class="about-card">
+            <div class="about-icon">💎</div>
+            <h3>High Quality</h3>
+            <p>Premium materials and meticulous craftsmanship in every piece.</p>
+          </div>
+          <div class="about-card">
+            <div class="about-icon">💌</div>
+            <h3>Personal Touch</h3>
+            <p>I understand your needs and bring your vision to life.</p>
+          </div>
+          <div class="about-card">
+            <div class="about-icon">⏱️</div>
+            <h3>Timeless Style</h3>
+            <p>Designs that last — both in quality and aesthetic appeal.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="products" id="products">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">Collection</span>
+        <h2>Explore My Work</h2>
+        <p>Custom crochet pieces designed with care. Ready to order or start your own custom project.</p>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="filter-bar fade-in" id="filter-bar">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="bags">Bags</button>
+        <button class="filter-btn" data-filter="tops">Tops</button>
+        <button class="filter-btn" data-filter="accessories">Accessories</button>
+      </div>
+
+      <!-- Dynamic products injected by main.js -->
+      <div class="products-grid" id="products-grid"></div>
+
+      <!-- Shown when no products exist yet -->
+      <div class="no-products-state" id="no-products-state" style="display:none;">
+        <div class="no-products-icon">🧶</div>
+        <h3>New collection coming soon</h3>
+        <p>Check back shortly — beautiful pieces are on their way.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">Get in Touch</span>
+        <h2>Let's Create Something Beautiful</h2>
+        <p>Have a custom project in mind? Ready to place an order? Reach out — I'd love to hear from you.</p>
+      </div>
+      <div class="contact-grid">
+        <form class="contact-form fade-in" id="contact-form" novalidate>
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="e.g. Lerato Dlamini" required />
+            <span class="form-error" id="name-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required />
+            <span class="form-error" id="email-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="item">Item of Interest</label>
+            <select id="item" name="item">
+              <option value="">Select an item...</option>
+              <!-- options populated dynamically from products -->
+              <option>Custom Order</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="4" placeholder="Tell me about your custom order, color preferences, size, timeline, or any questions..." required></textarea>
+            <span class="form-error" id="message-error"></span>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Send Message ✿</button>
+          <div class="form-success" id="form-success">
+            🌹 Thank you! I'll get back to you soon.
+          </div>
+        </form>
+
+        <div class="contact-info fade-in">
+          <div class="contact-detail">
+            <span class="contact-icon">📧</span>
+            <div>
+              <h4>Email</h4>
+              <p><a href="mailto:peacefulvuyanzi@gmail.com" style="color: var(--pink); text-decoration: none; transition: opacity 0.2s;">peacefulvuyanzi@gmail.com</a></p>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <span class="contact-icon">📱</span>
+            <div>
+              <h4>WhatsApp / Direct Line</h4>
+              <p><a href="tel:+254710626156" style="color: var(--pink); text-decoration: none; transition: opacity 0.2s;">+254 710 626 156</a></p>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <span class="contact-icon">📍</span>
+            <div>
+              <h4>Location</h4>
+              <p>Based in Nairobi, Kenya</p>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <span class="contact-icon">⏱️</span>
+            <div>
+              <h4>Response Time</h4>
+              <p>Most inquiries answered within 24 hours. Custom projects available.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <a href="#home" class="logo">
+          <span class="logo-rose">✿</span> Twizie <span class="logo-divider">|</span> Rosette Crochet
+        </a>
+        <p>Handmade with love, one stitch at a time.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#products">Shop</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <p class="footer-copy">&copy; 2026 Rosette Crochet. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
