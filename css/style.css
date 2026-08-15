@@ -375,6 +375,66 @@ img { max-width: 100%; display: block; }
   color: #999;
 }
 
+/* --- DELIVERY NOTICE --- */
+.delivery-notice {
+  background: linear-gradient(135deg, rgba(194, 24, 91, 0.1) 0%, rgba(194, 24, 91, 0.05) 100%);
+  border: 1px solid rgba(194, 24, 91, 0.3);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 48px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+.delivery-notice:hover {
+  background: linear-gradient(135deg, rgba(194, 24, 91, 0.15) 0%, rgba(194, 24, 91, 0.1) 100%);
+  border-color: rgba(194, 24, 91, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(194, 24, 91, 0.15);
+}
+
+.delivery-icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+
+.delivery-text h4 {
+  font-family: var(--font-head);
+  font-size: 1rem;
+  color: var(--white);
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+
+.delivery-text p {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin: 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  .delivery-notice {
+    flex-direction: column;
+    text-align: center;
+    padding: 16px 18px;
+  }
+
+  .delivery-icon {
+    font-size: 1.6rem;
+  }
+
+  .delivery-text h4 {
+    font-size: 0.95rem;
+  }
+
+  .delivery-text p {
+    font-size: 0.85rem;
+  }
+}
+
 /* --- PRODUCTS --- */
 .products {
   padding: 100px 0;
