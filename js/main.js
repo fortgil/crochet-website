@@ -11,52 +11,69 @@ document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem(STORAGE_KEY)) return; // already has products
     
     const defaults = [
+      // Ready-made products
       {
-        id: 'prod_001',
+        id: 'ready_001',
         name: 'Boho Market Bag',
         category: 'bags',
+        type: 'ready-made',
         price: 2500,
         description: 'Perfect for every outing. Spacious & stylish.',
+        status: 'available',
+        stock: 2,
         image: null
       },
       {
-        id: 'prod_002',
+        id: 'ready_002',
         name: 'Lace Crop Top',
-        category: 'tops',
+        category: 'tops', 
+        type: 'ready-made',
         price: 3000,
         description: 'Light, elegant, and perfect for summer.',
+        status: 'available',
+        stock: 1,
         image: null
       },
       {
-        id: 'prod_003',
+        id: 'ready_003',
         name: 'Rose Hair Clip',
         category: 'accessories',
+        type: 'ready-made', 
         price: 800,
         description: 'Delicate crocheted rose, a sweet touch.',
+        status: 'available',
+        stock: 3,
         image: null
       },
+      // Reference/Custom designs
       {
-        id: 'prod_004',
-        name: 'Mini Crossbody Bag',
+        id: 'ref_001',
+        name: 'Vintage Tote Design',
         category: 'bags',
-        price: 2000,
-        description: 'Compact and cute. Goes with everything.',
+        type: 'reference',
+        price: 3200,
+        description: 'Classic tote with intricate stitch patterns. Can be customized in your preferred colors.',
+        status: 'custom',
         image: null
       },
       {
-        id: 'prod_005',
-        name: 'Open-back Halter',
+        id: 'ref_002',
+        name: 'Bohemian Halter Top',
         category: 'tops',
-        price: 3500,
-        description: 'Bold, beautiful, and made to turn heads.',
+        type: 'reference',
+        price: 3800,
+        description: 'Flowing halter with detailed lacework. Perfect for special occasions.',
+        status: 'custom',
         image: null
       },
       {
-        id: 'prod_006',
-        name: 'Wrap Bracelet Set',
+        id: 'ref_003',
+        name: 'Statement Earring Set',
         category: 'accessories',
-        price: 1200,
-        description: 'Set of 3 handmade bracelets. Stack them up.',
+        type: 'reference',
+        price: 1500,
+        description: 'Bold geometric earrings that make an impression. Available in multiple colors.',
+        status: 'custom',
         image: null
       }
     ];
@@ -76,65 +93,133 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function renderProducts(filter = 'all') {
+  function renderProducts() {
     try {
       const products = loadProducts();
-      const grid = document.getElementById('products-grid');
-      const emptyState = document.getElementById('no-products-state');
+      
+      const readyMadeGrid = document.getElementById('ready-made-grid');
+      const referenceGrid = document.getElementById('reference-grid');
+      const readyMadeEmpty = document.getElementById('no-ready-made-state');
+      const referenceEmpty = document.getElementById('no-reference-state');
 
-      if (!grid) {
-        console.error('products-grid not found in DOM');
+      if (!readyMadeGrid || !referenceGrid) {
+        console.error('Product grids not found in DOM');
         return;
       }
 
-      // Filter
-      const filtered = filter === 'all' 
-        ? products 
-        : products.filter(p => p.category === filter);
+      // Separate products by type
+      const readyMadeProducts = products.filter(p => p.type === 'ready-made');
+      const referenceProducts = products.filter(p => p.type === 'reference');
 
-      if (filtered.length === 0) {
-        grid.innerHTML = '';
-        if (emptyState) emptyState.style.display = 'block';
-        return;
-      }
+      // Render Ready-Made Products
+      renderProductGrid(readyMadeProducts, readyMadeGrid, readyMadeEmpty, 'ready-made');
+      
+      // Render Reference Products 
+      renderProductGrid(referenceProducts, referenceGrid, referenceEmpty, 'reference');
 
-      if (emptyState) emptyState.style.display = 'none';
-
-      grid.innerHTML = filtered.map(p => {
-        const hasImg = p.image && p.image.startsWith('data:');
-        const icon = { bags: '🎒', tops: '👕', accessories: '🌸' }[p.category] || '🧶';
-        
-        return `
-          <div class="product-card fade-in" data-category="${p.category}">
-            <div class="product-img-wrap">
-              <div class="product-img ${!hasImg ? 'placeholder-img' : ''}">
-                ${hasImg 
-                  ? `<img src="${p.image}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius);" />`
-                  : icon}
-              </div>
-              <div class="product-overlay">
-                <button class="btn btn-primary btn-sm" onclick="scrollToContact('${p.name}')">Inquire Now</button>
-              </div>
-            </div>
-            <div class="product-info">
-              <h3>${p.name}</h3>
-              <p>${p.description}</p>
-              <span class="price">KES ${Number(p.price).toLocaleString('en-KE')}</span>
-            </div>
-          </div>
-        `;
-      }).join('');
-
-      // Re-trigger fade animations for new cards
-      document.querySelectorAll('.product-card.fade-in').forEach((el, i) => {
-        el.style.animation = 'none';
-        el.offsetHeight; // reflow
-        el.style.animation = `fadeUp 0.7s ease ${i * 0.08}s forwards`;
-      });
     } catch (e) {
       console.error('Error rendering products:', e);
     }
   }
+
+  function renderProductGrid(products, grid, emptyState, type) {
+    if (products.length === 0) {
+      grid.innerHTML = '';
+      if (emptyState) emptyState.style.display = 'block';
+      return;
+    }
+
+    if (emptyState) emptyState.style.display = 'none';
+
+    grid.innerHTML = products.map(p => {
+      const hasImg = p.image && p.image.startsWith('data:');
+      const icon = { bags: '🎒', tops: '👕', accessories: '🌸' }[p.category] || '🧶';
+      
+      // Button and status based on type
+      let buttonText, buttonAction, statusBadge;
+      
+      if (type === 'ready-made') {
+        buttonText = 'Order Now';
+        buttonAction = `orderProduct('${p.name}', ${p.price})`;
+        statusBadge = `<div class="product-status available">Available</div>`;
+      } else {
+        buttonText = 'Request This Design';
+        buttonAction = `requestCustom('${p.name}', ${p.price})`;
+        statusBadge = `<div class="product-status custom">Made on Request</div>`;
+      }
+      
+      return `
+        <div class="product-card ${type} fade-in" data-category="${p.category}">
+          <div class="product-img-wrap">
+            ${statusBadge}
+            <div class="product-img ${!hasImg ? 'placeholder-img' : ''}">
+              ${hasImg 
+                ? `<img src="${p.image}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius);" />`
+                : icon}
+            </div>
+            <div class="product-overlay">
+              <button class="btn btn-primary btn-sm" onclick="${buttonAction}">${buttonText}</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3>${p.name}</h3>
+            <p>${p.description}</p>
+            <span class="price">KES ${Number(p.price).toLocaleString('en-KE')}</span>
+            ${type === 'ready-made' && p.stock ? `<div class="stock-info">${p.stock} in stock</div>` : ''}
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Re-trigger fade animations
+    grid.querySelectorAll('.product-card.fade-in').forEach((el, i) => {
+      el.style.animation = 'none';
+      el.offsetHeight; // reflow
+      el.style.animation = `fadeUp 0.7s ease ${i * 0.08}s forwards`;
+    });
+  }
+
+  // Filter functions for Ready-Made Products
+  window.filterReadyMade = (category) => {
+    const products = loadProducts();
+    const readyMadeProducts = products.filter(p => p.type === 'ready-made');
+    
+    const filtered = category === 'all' 
+      ? readyMadeProducts
+      : readyMadeProducts.filter(p => p.category === category);
+    
+    const grid = document.getElementById('ready-made-grid');
+    const emptyState = document.getElementById('no-ready-made-state');
+    
+    renderProductGrid(filtered, grid, emptyState, 'ready-made');
+    
+    // Update active button
+    document.querySelectorAll('#ready-made-filter .filter-btn').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    document.querySelector(`#ready-made-filter [data-filter="${category}"]`).classList.add('active');
+  };
+
+  // Filter functions for Reference Products
+  window.filterReference = (category) => {
+    const products = loadProducts();
+    const referenceProducts = products.filter(p => p.type === 'reference');
+    
+    const filtered = category === 'all'
+      ? referenceProducts
+      : referenceProducts.filter(p => p.category === category);
+    
+    const grid = document.getElementById('reference-grid');
+    const emptyState = document.getElementById('no-reference-state');
+    
+    renderProductGrid(filtered, grid, emptyState, 'reference');
+    
+    // Update active button
+    document.querySelectorAll('#reference-filter .filter-btn').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    document.querySelector(`#reference-filter [data-filter="${category}"]`).classList.add('active');
+  };
 
   // Update contact form dropdown
   function updateItemDropdown() {
@@ -155,11 +240,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (opt.value && opt.value !== 'custom') opt.remove();
       });
 
-      // Add product names
-      products.forEach(p => {
+      // Add ready-made products
+      const readyMade = products.filter(p => p.type === 'ready-made');
+      readyMade.forEach(p => {
         const opt = document.createElement('option');
         opt.value = p.name;
-        opt.textContent = p.name;
+        opt.textContent = `${p.name} (Ready-Made)`;
+        select.insertBefore(opt, select.lastElementChild);
+      });
+
+      // Add reference designs
+      const reference = products.filter(p => p.type === 'reference');
+      reference.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p.name;
+        opt.textContent = `${p.name} (Custom Design)`;
         select.insertBefore(opt, select.lastElementChild);
       });
 
@@ -168,6 +263,21 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error('Error updating dropdown:', e);
     }
   }
+
+  // WhatsApp Integration Functions
+  window.orderProduct = (productName, price) => {
+    const phoneNumber = '254710626156'; // Your WhatsApp number
+    const message = `Hi! I would like to order "${productName}" (KES ${Number(price).toLocaleString('en-KE')}). Is it still available?`;
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
+  window.requestCustom = (designName, estimatedPrice) => {
+    const phoneNumber = '254710626156'; // Your WhatsApp number  
+    const message = `Hi! I am interested in this design: "${designName}". I would like to request a custom order. The estimated price shown is KES ${Number(estimatedPrice).toLocaleString('en-KE')}. Can we discuss customization options?`;
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
 
   // Scroll to contact and pre-fill item
   window.scrollToContact = (itemName) => {
@@ -249,21 +359,6 @@ document.addEventListener('DOMContentLoaded', () => {
   );
 
   fadeEls.forEach(el => observer.observe(el));
-
-
-  // ── 4. PRODUCT FILTER ───────────────────────────────────────────────
-  const filterBtns = document.querySelectorAll('.filter-btn');
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      // Toggle active state
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const filter = btn.dataset.filter;
-      renderProducts(filter);
-    });
-  });
 
 
   // ── 5. CONTACT FORM VALIDATION ──────────────────────────────────────
@@ -356,8 +451,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  // ── 7. MAGNETIC BUTTON EFFECT ───────────────────────────────────────
-  document.querySelectorAll('.btn, .filter-btn').forEach(btn => {
+  // ── 6. MAGNETIC BUTTON EFFECT ───────────────────────────────────────
+  document.querySelectorAll('.btn').forEach(btn => {
     btn.addEventListener('mousemove', e => {
       const rect   = btn.getBoundingClientRect();
       const cx     = rect.left + rect.width  / 2;
@@ -372,7 +467,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  // ── 8. PRODUCT CARD TILT EFFECT ─────────────────────────────────────
+  // ── 7. PRODUCT CARD TILT EFFECT ─────────────────────────────────────
   document.addEventListener('mousemove', e => {
     document.querySelectorAll('.product-card').forEach(card => {
       const rect  = card.getBoundingClientRect();
@@ -410,14 +505,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  // ── 10. INIT PRODUCTS ────────────────────────────────────────────────
+  // ── 8. INIT PRODUCTS ────────────────────────────────────────────────
   initDefaultProducts();
   renderProducts();
   updateItemDropdown();
 
   // Re-render if localStorage changes (admin made changes or data updated elsewhere)
   window.addEventListener('storage', () => {
-    renderProducts('all');
+    renderProducts();
     updateItemDropdown();
   });
 

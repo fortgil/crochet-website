@@ -75,27 +75,55 @@
   <section class="products" id="products">
     <div class="container">
       <div class="section-header fade-in">
-        <span class="section-tag">Collection</span>
-        <h2>Explore My Work</h2>
-        <p>Custom crochet pieces designed with care. Ready to order or start your own custom project.</p>
+        <span class="section-tag">Shopping</span>
+        <h2>Our Collection</h2>
+        <p>Browse ready-made pieces or get inspired by our custom designs.</p>
       </div>
 
-      <!-- Filter Buttons -->
-      <div class="filter-bar fade-in" id="filter-bar">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="bags">Bags</button>
-        <button class="filter-btn" data-filter="tops">Tops</button>
-        <button class="filter-btn" data-filter="accessories">Accessories</button>
+      <!-- READY-MADE PRODUCTS -->
+      <div class="product-category" id="ready-made-section">
+        <div class="category-header fade-in">
+          <h3>Ready-Made Products</h3>
+          <p>Available now — ready to order and ship.</p>
+        </div>
+        
+        <!-- Filter Buttons for Ready-Made -->
+        <div class="filter-bar fade-in" id="ready-made-filter">
+          <button class="filter-btn active" data-filter="all" onclick="filterReadyMade('all')">All</button>
+          <button class="filter-btn" data-filter="bags" onclick="filterReadyMade('bags')">Bags</button>
+          <button class="filter-btn" data-filter="tops" onclick="filterReadyMade('tops')">Tops</button>
+          <button class="filter-btn" data-filter="accessories" onclick="filterReadyMade('accessories')">Accessories</button>
+        </div>
+        
+        <div class="products-grid" id="ready-made-grid"></div>
+        <div class="no-products-state" id="no-ready-made-state" style="display:none;">
+          <div class="no-products-icon">📦</div>
+          <h4>No ready-made products available</h4>
+          <p>Check back soon for new arrivals!</p>
+        </div>
       </div>
 
-      <!-- Dynamic products injected by main.js -->
-      <div class="products-grid" id="products-grid"></div>
-
-      <!-- Shown when no products exist yet -->
-      <div class="no-products-state" id="no-products-state" style="display:none;">
-        <div class="no-products-icon">🧶</div>
-        <h3>New collection coming soon</h3>
-        <p>Check back shortly — beautiful pieces are on their way.</p>
+      <!-- REFERENCE / CUSTOM DESIGNS -->
+      <div class="product-category" id="reference-section">
+        <div class="category-header fade-in">
+          <h3>Reference / Custom Designs</h3>
+          <p>Like a design you see? We can make it for you. Request a custom order.</p>
+        </div>
+        
+        <!-- Filter Buttons for Reference -->
+        <div class="filter-bar fade-in" id="reference-filter">
+          <button class="filter-btn active" data-filter="all" onclick="filterReference('all')">All</button>
+          <button class="filter-btn" data-filter="bags" onclick="filterReference('bags')">Bags</button>
+          <button class="filter-btn" data-filter="tops" onclick="filterReference('tops')">Tops</button>
+          <button class="filter-btn" data-filter="accessories" onclick="filterReference('accessories')">Accessories</button>
+        </div>
+        
+        <div class="products-grid" id="reference-grid"></div>
+        <div class="no-products-state" id="no-reference-state" style="display:none;">
+          <div class="no-products-icon">🎨</div>
+          <h4>Reference designs coming soon</h4>
+          <p>We're adding inspiration pieces for custom orders.</p>
+        </div>
       </div>
     </div>
   </section>
