@@ -58,13 +58,13 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       {
         id: 'ref_002',
-        name: 'Bohemian Halter Top',
+        name: 'Crochet Strawberry Shrug',
         category: 'tops',
         type: 'reference',
-        price: 3800,
-        description: 'Flowing halter with detailed lacework. Perfect for special occasions.',
+        price: 2500,
+        description: 'Adorable strawberry-themed shrug perfect for any occasion. Customize colors to match your style.',
         status: 'custom',
-        image: null
+        image: 'images/crochet stoberi shrug.jpg'
       },
       {
         id: 'ref_003',
@@ -133,27 +133,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     grid.innerHTML = products.map(p => {
       const hasImg = p.image && p.image.startsWith('data:');
+      const isLocalImg = p.image && !p.image.startsWith('data:');
       const icon = { bags: '🎒', tops: '👕', accessories: '🌸' }[p.category] || '🧶';
       
       // Button and status based on type
-      let buttonText, buttonAction, statusBadge;
+      let buttonText, buttonAction;
       
       if (type === 'ready-made') {
         buttonText = 'Order Now';
         buttonAction = `orderProduct('${p.name}', ${p.price})`;
-        statusBadge = `<div class="product-status available">Available</div>`;
       } else {
         buttonText = 'Request This Design';
         buttonAction = `requestCustom('${p.name}', ${p.price})`;
-        statusBadge = `<div class="product-status custom">Made on Request</div>`;
       }
       
       return `
         <div class="product-card ${type} fade-in" data-category="${p.category}">
           <div class="product-img-wrap">
-            ${statusBadge}
-            <div class="product-img ${!hasImg ? 'placeholder-img' : ''}">
-              ${hasImg 
+            <div class="product-img ${!hasImg && !isLocalImg ? 'placeholder-img' : ''}">
+              ${hasImg
+                ? `<img src="${p.image}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius);" />`
+                : isLocalImg
                 ? `<img src="${p.image}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius);" />`
                 : icon}
             </div>
@@ -163,9 +163,9 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
           <div class="product-info">
             <h3>${p.name}</h3>
-            <p>${p.description}</p>
-            <span class="price">KES ${Number(p.price).toLocaleString('en-KE')}</span>
-            ${type === 'ready-made' && p.stock ? `<div class="stock-info">${p.stock} in stock</div>` : ''}
+            <div class="product-price">KSh ${Number(p.price).toLocaleString('en-KE')}</div>
+            <p class="product-description">${p.description}</p>
+            <div class="product-status-label">${type === 'ready-made' ? '✓ Available' : '🎨 Made on Request'}</div>
           </div>
         </div>
       `;
@@ -266,15 +266,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // WhatsApp Integration Functions
   window.orderProduct = (productName, price) => {
-    const phoneNumber = '254710626156'; // Your WhatsApp number
-    const message = `Hi! I would like to order "${productName}" (KES ${Number(price).toLocaleString('en-KE')}). Is it still available?`;
+    const phoneNumber = '254710626156';
+    const message = `Hello, I would like to order the ${productName}.`;
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
   window.requestCustom = (designName, estimatedPrice) => {
-    const phoneNumber = '254710626156'; // Your WhatsApp number  
-    const message = `Hi! I am interested in this design: "${designName}". I would like to request a custom order. The estimated price shown is KES ${Number(estimatedPrice).toLocaleString('en-KE')}. Can we discuss customization options?`;
+    const phoneNumber = '254710626156';
+    const message = `Hello, I am interested in the ${designName}. I would like to request a custom order.`;
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
@@ -506,6 +506,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ── 8. INIT PRODUCTS ────────────────────────────────────────────────
+  // Clear old localStorage to load new products (remove this line after first load)
+  localStorage.removeItem(STORAGE_KEY);
+  
   initDefaultProducts();
   renderProducts();
   updateItemDropdown();
