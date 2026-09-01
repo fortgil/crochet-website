@@ -6,9 +6,9 @@ const STORAGE_KEY = 'twizie_products';
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ── 0a. INITIALIZE DEFAULT PRODUCTS ──────────────────────────────────
+  // ── 0a. INITIALIZE DEFAULT PRODUCTS (first time only) ────────────────
   function initDefaultProducts() {
-    const existing = localStorage.getItem(STORAGE_KEY);
+    if (localStorage.getItem(STORAGE_KEY)) return; // already has products
     
     const defaults = [
       // Ready-made products
@@ -47,40 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       // Reference/Custom designs
       {
-        id: 'ready_004',
-        name: 'Orange Black Bag',
-        category: 'bags',
-        type: 'ready-made',
-        price: 2500,
-        description: 'Handcrafted orange and black crochet bag with classic style.',
-        status: 'available',
-        stock: 1,
-        image: 'images/orange black 1.jpg'
-      },
-      {
-        id: 'ready_005',
-        name: 'Striped Black Bag',
-        category: 'bags',
-        type: 'ready-made',
-        price: 2000,
-        description: 'Bold striped crochet bag that makes a statement.',
-        status: 'available',
-        stock: 1,
-        image: 'images/strip black.jpg'
-      },
-      {
-        id: 'ready_006',
-        name: 'Crimson Strawberry Bag',
-        category: 'bags',
-        type: 'ready-made',
-        price: 2800,
-        description: 'Sweet strawberry-red crochet bag bursting with charm. Perfect for carrying your everyday treasures with a pop of vibrant color.',
-        status: 'available',
-        stock: 1,
-        image: 'images/CROCHET BAG.jpg'
-      },
-      // Reference/Custom designs
-      {
         id: 'ref_001',
         name: 'Vintage Tote Design',
         category: 'bags',
@@ -106,36 +72,13 @@ document.addEventListener('DOMContentLoaded', () => {
         category: 'accessories',
         type: 'reference',
         price: 1500,
-        description: 'Bold geometric earrings that make an impression.',
+        description: 'Bold geometric earrings that make an impression. Available in multiple colors.',
         status: 'custom',
         image: null
       }
     ];
-
-    if (!existing) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(defaults));
-      return;
-    }
-
-    try {
-      const currentList = JSON.parse(existing);
-      let updated = false;
-      defaults.forEach(def => {
-        const idx = currentList.findIndex(p => p.id === def.id);
-        if (idx === -1) {
-          currentList.push(def);
-          updated = true;
-        } else if (!currentList[idx].image && def.image) {
-          currentList[idx].image = def.image;
-          updated = true;
-        }
-      });
-      if (updated) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(currentList));
-      }
-    } catch (e) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(defaults));
-    }
+    
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(defaults));
   }
 
   // ── 0. LOAD & RENDER PRODUCTS FROM LOCALSTORAGE ──────────────────
@@ -563,6 +506,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ── 8. INIT PRODUCTS ────────────────────────────────────────────────
+  // Clear old localStorage to load new products (remove this line after first load)
+  localStorage.removeItem(STORAGE_KEY);
+  
   initDefaultProducts();
   renderProducts();
   updateItemDropdown();
@@ -574,6 +520,3 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
-
-
-
