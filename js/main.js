@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return `
         <div class="product-card ${type} fade-in" data-category="${p.category}">
           <div class="product-img-wrap">
-            <div class="product-img ${!hasImg && !isLocalImg ? 'placeholder-img' : ''}">
+            <div class="product-img ${!hasImg && !isLocalImg ? 'placeholder-img' : ''}" ${hasImg || isLocalImg ? `onclick="openProductLightbox('${p.id}')" style="cursor:zoom-in;" title="Click to view photo"` : ''}>
               ${hasImg
                 ? `<img src="${p.image}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius);" />`
                 : isLocalImg
@@ -567,13 +567,72 @@ document.addEventListener('DOMContentLoaded', () => {
   renderProducts();
   updateItemDropdown();
 
-  // Re-render if localStorage changes (admin made changes or data updated elsewhere)
-  window.addEventListener('storage', () => {
-    renderProducts();
-    updateItemDropdown();
+  // ── 10. FAQ ACCORDION ───────────────────────────────────────────────
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isActive = item.classList.contains('active');
+      
+      // Close other open items
+      document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
+      
+      // Toggle clicked item
+      if (!isActive) {
+        item.classList.add('active');
+      }
+    });
+  });
+
+  // ── 11. LIGHTBOX MODAL ──────────────────────────────────────────────
+  const lightbox = document.getElementById('lightbox-modal');
+  const lightboxImg = document.getElementById('lightbox-image');
+  const lightboxTitle = document.getElementById('lightbox-title');
+  const lightboxPrice = document.getElementById('lightbox-price');
+  const lightboxDesc = document.getElementById('lightbox-desc');
+  const lightboxOrderBtn = document.getElementById('lightbox-order-btn');
+  const lightboxClose = document.getElementById('lightbox-close');
+  const lightboxOverlay = document.getElementById('lightbox-overlay');
+
+  window.openProductLightbox = (productId) => {
+    const products = loadProducts();
+    const p = products.find(prod => prod.id === productId);
+    if (!p || !p.image) return;
+
+    if (lightboxImg) {
+      lightboxImg.src = p.image;
+      lightboxImg.alt = p.name;
+    }
+    if (lightboxTitle) lightboxTitle.textContent = p.name;
+    if (lightboxPrice) lightboxPrice.textContent = `KSh ${Number(p.price).toLocaleString('en-KE')}`;
+    if (lightboxDesc) lightboxDesc.textContent = p.description;
+
+    if (lightboxOrderBtn) {
+      if (p.type === 'ready-made') {
+        lightboxOrderBtn.textContent = 'Order on WhatsApp ✿';
+        lightboxOrderBtn.onclick = () => orderProduct(p.name, p.price);
+      } else {
+        lightboxOrderBtn.textContent = 'Request Custom Design ✿';
+        lightboxOrderBtn.onclick = () => requestCustom(p.name, p.price);
+      }
+    }
+
+    if (lightbox) {
+      lightbox.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  function closeLightbox() {
+    if (lightbox) {
+      lightbox.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  }
+
+  if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+  if (lightboxOverlay) lightboxOverlay.addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
   });
 
 });
-
-
-
