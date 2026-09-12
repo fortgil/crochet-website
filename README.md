@@ -1,2 +1,2 @@
-Twizie | Knitzie Crochet — Handmade crochet products and custom designs.
-https://twizie-knitzie-crochet.netlify.app/
+Twizie | Rosette Crochet — Handmade crochet products and custom designs.
+https://twizie-rosette-crochet.netlify.app/
