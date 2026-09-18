@@ -8,87 +8,121 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ── 0a. INITIALIZE DEFAULT PRODUCTS ──────────────────────────────────
   function initDefaultProducts() {
+    const VERSION = 'v2_rosette';
+    const savedVersion = localStorage.getItem('twizie_version');
     const existing = localStorage.getItem(STORAGE_KEY);
     
     const defaults = [
       // Ready-made products
       {
         id: 'ready_001',
-        name: 'Boho Market Bag',
+        name: 'Rosette Pink Blossom Bag',
         category: 'bags',
         type: 'ready-made',
-        price: 2500,
-        description: 'Perfect for every outing. Spacious & stylish.',
+        price: 2000,
+        description: 'Charming cream crochet shoulder bag adorned with vibrant pink granny squares and a matching pink zip closure.',
         status: 'available',
         stock: 2,
-        image: null
+        image: 'images/BAG 2.jpg'
       },
       {
         id: 'ready_002',
-        name: 'Lace Crop Top',
-        category: 'tops', 
+        name: 'Pink Blossom Mocha Bag',
+        category: 'bags',
         type: 'ready-made',
-        price: 3000,
-        description: 'Light, elegant, and perfect for summer.',
+        price: 2000,
+        description: 'Delightful blend of soft pink, mocha brown, and cream crochet squares, styled with a cute flower clip.',
         status: 'available',
         stock: 1,
-        image: null
+        image: 'images/BAG 4.jpg'
       },
       {
         id: 'ready_003',
+        name: 'Black Cherry Chevron Bag',
+        category: 'bags',
+        type: 'ready-made',
+        price: 2500,
+        description: 'Striking black and white zigzag crochet bag accented with a cute handmade cherry charm.',
+        status: 'available',
+        stock: 2,
+        image: 'images/BAG 5.jpg'
+      },
+      {
+        id: 'ready_004',
+        name: 'Sunset Blossom Tote',
+        category: 'bags',
+        type: 'ready-made',
+        price: 2500,
+        description: 'Warm and cozy cream shoulder bag featuring vibrant floral granny squares in sunset orange and red tones.',
+        status: 'available',
+        stock: 1,
+        image: 'images/BAG 1.jpg'
+      },
+      {
+        id: 'ready_005',
+        name: 'Mocha Checkered Tote',
+        category: 'bags',
+        type: 'ready-made',
+        price: 2500,
+        description: 'Trendy checkerboard pattern in rich mocha brown and cream, sturdy and spacious for everyday outings.',
+        status: 'available',
+        stock: 2,
+        image: 'images/BAG 3.jpg'
+      },
+      {
+        id: 'ready_006',
+        name: 'Striped Black Tote',
+        category: 'bags',
+        type: 'ready-made',
+        price: 2000,
+        description: 'Bold black-and-white striped crochet tote with elegant contrast lines and comfortable handles.',
+        status: 'available',
+        stock: 1,
+        image: 'images/strip black.jpg'
+      },
+      {
+        id: 'ready_007',
+        name: 'Crimson Strawberry Bag',
+        category: 'bags',
+        type: 'ready-made',
+        price: 2800,
+        description: 'Sweet strawberry-red crochet bag bursting with charm. Perfect for carrying your everyday essentials.',
+        status: 'available',
+        stock: 1,
+        image: 'images/CROCHET BAG.jpg'
+      },
+      {
+        id: 'ready_008',
+        name: 'Magenta Striped Crop Top',
+        category: 'tops',
+        type: 'ready-made',
+        price: 3000,
+        description: 'Stunning magenta pink and black striped crochet top with flattering V-neck cut.',
+        status: 'available',
+        stock: 1,
+        image: 'images/TOP 2.jpg'
+      },
+      {
+        id: 'ready_009',
         name: 'Rose Hair Clip',
         category: 'accessories',
-        type: 'ready-made', 
+        type: 'ready-made',
         price: 800,
-        description: 'Delicate crocheted rose, a sweet touch.',
+        description: 'Delicate handcrafted crochet rose clip, the perfect sweet touch.',
         status: 'available',
         stock: 3,
         image: null
       },
       // Reference/Custom designs
       {
-        id: 'ready_004',
-        name: 'Orange Black Bag',
-        category: 'bags',
-        type: 'ready-made',
-        price: 2500,
-        description: 'Handcrafted orange and black crochet bag with classic style.',
-        status: 'available',
-        stock: 1,
-        image: 'images/orange black 1.jpg'
-      },
-      {
-        id: 'ready_005',
-        name: 'Striped Black Bag',
-        category: 'bags',
-        type: 'ready-made',
-        price: 2000,
-        description: 'Bold striped crochet bag that makes a statement.',
-        status: 'available',
-        stock: 1,
-        image: 'images/strip black.jpg'
-      },
-      {
-        id: 'ready_006',
-        name: 'Crimson Strawberry Bag',
-        category: 'bags',
-        type: 'ready-made',
-        price: 2800,
-        description: 'Sweet strawberry-red crochet bag bursting with charm. Perfect for carrying your everyday treasures with a pop of vibrant color.',
-        status: 'available',
-        stock: 1,
-        image: 'images/CROCHET BAG.jpg'
-      },
-      // Reference/Custom designs
-      {
         id: 'ref_001',
-        name: 'Vintage Tote Design',
-        category: 'bags',
+        name: 'Black & White Shrug Sleeves',
+        category: 'tops',
         type: 'reference',
-        price: 3200,
-        description: 'Classic tote with intricate stitch patterns. Can be customized in your preferred colors.',
+        price: 2800,
+        description: 'Statement black and white granny square shrug with flared sleeves. Made to your exact measurements.',
         status: 'custom',
-        image: null
+        image: 'images/TOP.jpg'
       },
       {
         id: 'ref_002',
@@ -96,24 +130,35 @@ document.addEventListener('DOMContentLoaded', () => {
         category: 'tops',
         type: 'reference',
         price: 2500,
-        description: 'Adorable strawberry-themed shrug perfect for any occasion. Customize colors to match your style.',
+        description: 'Adorable strawberry-themed shrug perfect for any occasion. Customize colors and sizing to match your style.',
         status: 'custom',
         image: 'images/crochet stoberi shrug.jpg'
       },
       {
         id: 'ref_003',
-        name: 'Statement Earring Set',
+        name: 'Spider-Man Wall Tapestry',
         category: 'accessories',
         type: 'reference',
-        price: 1500,
-        description: 'Bold geometric earrings that make an impression.',
+        price: 3500,
+        description: 'Custom handcrafted Spider-Man graphic wall hanging for your room or studio. Custom characters available.',
         status: 'custom',
-        image: null
+        image: 'images/SPIDER.jpg'
+      },
+      {
+        id: 'ref_004',
+        name: 'Sunset Orange & Black Bag',
+        category: 'bags',
+        type: 'reference',
+        price: 2500,
+        description: 'Handcrafted orange and black crochet bag. Custom colorways and sizing available on request.',
+        status: 'custom',
+        image: 'images/orange black 1.jpg'
       }
     ];
 
-    if (!existing) {
+    if (!existing || savedVersion !== VERSION) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(defaults));
+      localStorage.setItem('twizie_version', VERSION);
       return;
     }
 
@@ -135,6 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } catch (e) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(defaults));
+      localStorage.setItem('twizie_version', VERSION);
     }
   }
 
