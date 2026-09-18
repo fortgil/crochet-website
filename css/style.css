@@ -1365,3 +1365,48 @@ img { max-width: 100%; display: block; }
   border-color: var(--pink);
   transform: translateY(-3px);
 }
+
+/* --- OWNER BADGE & ABOUT LEAD --- */
+.about-lead {
+  font-size: 1.05rem;
+  color: var(--white);
+  line-height: 1.6;
+}
+.about-text strong {
+  color: var(--white);
+}
+
+.owner-contact-badge {
+  margin: 20px 0;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(194, 24, 91, 0.3);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+.badge-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+}
+.badge-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.badge-item strong {
+  color: var(--pink);
+  margin-right: 6px;
+}
+.badge-item span, .badge-item a {
+  color: #ddd;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.badge-item a:hover {
+  color: var(--pink);
+  text-decoration: underline;
+}
