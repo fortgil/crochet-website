@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ── 0a. INITIALIZE DEFAULT PRODUCTS ──────────────────────────────────
   function initDefaultProducts() {
-    const VERSION = 'v2_rosette';
+    const VERSION = 'v17_rosette';
     const savedVersion = localStorage.getItem('twizie_version');
     const existing = localStorage.getItem(STORAGE_KEY);
     
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         name: 'Rosette Pink Blossom Bag',
         category: 'bags',
         type: 'ready-made',
-        price: 2000,
+        price: 1600,
         description: 'Charming cream crochet shoulder bag adorned with vibrant pink granny squares and a matching pink zip closure.',
         status: 'available',
         stock: 2,
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         name: 'Pink Blossom Mocha Bag',
         category: 'bags',
         type: 'ready-made',
-        price: 2000,
+        price: 1600,
         description: 'Delightful blend of soft pink, mocha brown, and cream crochet squares, styled with a cute flower clip.',
         status: 'available',
         stock: 1,
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         name: 'Black Cherry Chevron Bag',
         category: 'bags',
         type: 'ready-made',
-        price: 2500,
+        price: 1600,
         description: 'Striking black and white zigzag crochet bag accented with a cute handmade cherry charm.',
         status: 'available',
         stock: 2,
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         name: 'Sunset Blossom Tote',
         category: 'bags',
         type: 'ready-made',
-        price: 2500,
+        price: 2000,
         description: 'Warm and cozy cream shoulder bag featuring vibrant floral granny squares in sunset orange and red tones.',
         status: 'available',
         stock: 1,
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
         name: 'Mocha Checkered Tote',
         category: 'bags',
         type: 'ready-made',
-        price: 2500,
+        price: 2000,
         description: 'Trendy checkerboard pattern in rich mocha brown and cream, sturdy and spacious for everyday outings.',
         status: 'available',
         stock: 2,
@@ -82,36 +82,147 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       {
         id: 'ready_007',
-        name: 'Crimson Strawberry Bag',
-        category: 'bags',
-        type: 'ready-made',
-        price: 2800,
-        description: 'Sweet strawberry-red crochet bag bursting with charm. Perfect for carrying your everyday essentials.',
-        status: 'available',
-        stock: 1,
-        image: 'images/CROCHET BAG.jpg'
-      },
-      {
-        id: 'ready_008',
         name: 'Magenta Striped Crop Top',
         category: 'tops',
         type: 'ready-made',
-        price: 3000,
+        price: 2500,
         description: 'Stunning magenta pink and black striped crochet top with flattering V-neck cut.',
         status: 'available',
         stock: 1,
         image: 'images/TOP 2.jpg'
       },
       {
+        id: 'ready_008',
+        name: 'Jellyfish Charm Keychain',
+        category: 'accessories',
+        type: 'ready-made',
+        price: 150,
+        description: 'Super cute pink and white crochet jellyfish keychain with ruffled tentacles and pearl accents. Perfect for bags or keys.',
+        status: 'available',
+        stock: 4,
+        image: 'images/jellyfish keychain.jpg'
+      },
+      {
         id: 'ready_009',
-        name: 'Rose Hair Clip',
+        name: 'Coquette Ruffle Hair Bow',
         category: 'accessories',
         type: 'ready-made',
         price: 800,
-        description: 'Delicate handcrafted crochet rose clip, the perfect sweet touch.',
+        description: 'Delicate baby pink crochet hair bow with ruffled white lace edging. Perfect styling piece for braids, ponytails, or half-up hair.',
         status: 'available',
         stock: 3,
-        image: null
+        image: 'images/pink ruffle hair bow.jpg'
+      },
+      {
+        id: 'ready_010',
+        name: 'Cozy Ribbed Twist Headbands',
+        category: 'accessories',
+        type: 'ready-made',
+        price: 400,
+        description: 'Handmade ribbed twist-knot crochet ear warmer headbands, cozy and stylish in warm autumn tones.',
+        status: 'available',
+        stock: 6,
+        image: 'images/crochet headbands.jpg'
+      },
+      {
+        id: 'ready_011',
+        name: 'Cream Ribbon Bow Keychain',
+        category: 'accessories',
+        type: 'ready-made',
+        price: 150,
+        description: 'Minimalist cream crochet bow charm with silver keychain ring. Adds a sweet aesthetic touch to any bag or backpack.',
+        status: 'available',
+        stock: 5,
+        image: 'images/cream bow keychain.jpg'
+      },
+      {
+        id: 'ready_012',
+        name: 'Crimson Spiderweb Waist Drape',
+        category: 'accessories',
+        type: 'ready-made',
+        price: 600,
+        description: 'Edgy crimson-red crochet spiderweb waist scarf/drape with adjustable tie cords. Style it over jeans, skirts, or dresses.',
+        status: 'available',
+        stock: 2,
+        image: 'images/spiderweb hip drape.jpg'
+      },
+      {
+        id: 'ready_013',
+        name: 'Ruffle Blossom Scrunchies',
+        category: 'accessories',
+        type: 'ready-made',
+        price: 250,
+        description: 'Fluffy ruffled crochet hair scrunchies handmade with soft yarn that protects your hair. Available in dual-tone and pastel colors.',
+        status: 'available',
+        stock: 6,
+        image: 'images/crochet scrunchies.jpg'
+      },
+      {
+        id: 'ready_019',
+        name: 'Pastel Tie-Back Headbands',
+        category: 'accessories',
+        type: 'ready-made',
+        price: 150,
+        description: 'Handmade ribbed crochet tie-back headbands available in vibrant shades including magenta, royal blue, lavender, pastel yellow, orange, and sky blue.',
+        status: 'available',
+        stock: 6,
+        image: 'images/pastel tie headbands.jpg'
+      },
+      // Hats & Beanies
+      {
+        id: 'ready_014',
+        name: 'Sky Blue Cat-Ear Beanie',
+        category: 'hats',
+        type: 'ready-made',
+        price: 1500,
+        description: 'Super cute pastel sky blue and white granny square cat-ear beanie with a cozy fold-over brim.',
+        status: 'available',
+        stock: 3,
+        image: 'images/cat ear beanie blue.jpg'
+      },
+      {
+        id: 'ready_015',
+        name: 'Spider-Man Ribbed Beanie',
+        category: 'hats',
+        type: 'ready-made',
+        price: 1000,
+        description: 'Handcrafted crimson-red ribbed beanie featuring bold Spider-Man eye masks in black and white.',
+        status: 'available',
+        stock: 4,
+        image: 'images/spiderman beanie.jpg'
+      },
+      {
+        id: 'ready_016',
+        name: 'Sunburst Floral Ruffle Bucket Hat',
+        category: 'hats',
+        type: 'ready-made',
+        price: 2000,
+        description: 'Chic cream and sunburst-yellow floral granny square bucket hat with a dramatic wavy ruffle brim.',
+        status: 'available',
+        stock: 2,
+        image: 'images/yellow blossom ruffle bucket hat.jpg'
+      },
+      {
+        id: 'ready_017',
+        name: 'Coquette Ruffle Bonnet Bucket Hat',
+        category: 'hats',
+        type: 'ready-made',
+        price: 1800,
+        description: 'Romantic flared ruffle brim crochet bonnet hat, available in baby pink and chocolate brown.',
+        status: 'available',
+        stock: 3,
+        image: 'images/ruffle bonnet bucket hats.jpg'
+      },
+      {
+        id: 'ready_018',
+        name: 'Slouchy Grey Striped Beanie',
+        category: 'hats',
+        type: 'ready-made',
+        price: 1500,
+        description: 'Cozy relaxed-fit slouchy beanie in clean grey and white stripes, perfect for cool days and effortless style.',
+        status: 'available',
+        stock: 3,
+        image: 'images/striped slouchy beanie.jpg'
       },
       // Reference/Custom designs
       {
@@ -119,37 +230,27 @@ document.addEventListener('DOMContentLoaded', () => {
         name: 'Black & White Shrug Sleeves',
         category: 'tops',
         type: 'reference',
-        price: 2800,
+        price: 2000,
         description: 'Statement black and white granny square shrug with flared sleeves. Made to your exact measurements.',
         status: 'custom',
         image: 'images/TOP.jpg'
       },
       {
         id: 'ref_002',
-        name: 'Crochet Strawberry Shrug',
-        category: 'tops',
-        type: 'reference',
-        price: 2500,
-        description: 'Adorable strawberry-themed shrug perfect for any occasion. Customize colors and sizing to match your style.',
-        status: 'custom',
-        image: 'images/crochet stoberi shrug.jpg'
-      },
-      {
-        id: 'ref_003',
         name: 'Spider-Man Wall Tapestry',
         category: 'accessories',
         type: 'reference',
-        price: 3500,
+        price: 2500,
         description: 'Custom handcrafted Spider-Man graphic wall hanging for your room or studio. Custom characters available.',
         status: 'custom',
         image: 'images/SPIDER.jpg'
       },
       {
-        id: 'ref_004',
-        name: 'Sunset Orange & Black Bag',
+        id: 'ref_003',
+        name: 'Orange Black Tote',
         category: 'bags',
         type: 'reference',
-        price: 2500,
+        price: 2000,
         description: 'Handcrafted orange and black crochet bag. Custom colorways and sizing available on request.',
         status: 'custom',
         image: 'images/orange black 1.jpg'
@@ -237,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
     grid.innerHTML = products.map(p => {
       const hasImg = p.image && p.image.startsWith('data:');
       const isLocalImg = p.image && !p.image.startsWith('data:');
-      const icon = { bags: '🎒', tops: '👕', accessories: '🌸' }[p.category] || '🧶';
+      const icon = { bags: '🎒', tops: '👕', hats: '🧢', accessories: '🌸' }[p.category] || '🧶';
       
       // Button and status based on type
       let buttonText, buttonAction;
