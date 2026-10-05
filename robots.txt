@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /admin.html
+Disallow: /login.html
 
 Sitemap: https://twizie-rosette-crochet.vercel.app/sitemap.xml
+

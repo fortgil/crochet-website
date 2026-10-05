@@ -9,22 +9,13 @@
   
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lato:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/admin.css" />
+  <script>
+    if (sessionStorage.getItem('twizie_admin_auth') !== 'true') {
+      window.location.replace('login.html');
+    }
+  </script>
 </head>
 <body>
-
-  <!-- ADMIN PASSCODE / LOGIN SCREEN -->
-  <div class="admin-login-screen" id="admin-login-screen">
-    <div class="login-card">
-      <div class="login-icon">✿</div>
-      <h2>Twizie Admin</h2>
-      <p>Enter your secret PIN or password to manage Rosette Crochet.</p>
-      <form class="login-form" id="admin-login-form">
-        <input type="password" id="admin-password-input" placeholder="Enter PIN / Password" required autofocus autocomplete="current-password" />
-        <button type="submit" class="login-btn">Unlock Portal ✿</button>
-        <div class="login-error" id="login-error">Incorrect PIN. Try again.</div>
-      </form>
-    </div>
-  </div>
 
   <!-- HEADER -->
   <header class="admin-header">

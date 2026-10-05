@@ -9,46 +9,21 @@ let searchQuery = '';
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ── 1. AUTHENTICATION / PIN PROTECTION ────────────────────────────
-  const loginScreen = document.getElementById('admin-login-screen');
-  const loginForm = document.getElementById('admin-login-form');
-  const passInput = document.getElementById('admin-password-input');
-  const loginError = document.getElementById('login-error');
+  // ── 1. AUTHENTICATION CHECK ──────────────────────────────────────
   const btnLogout = document.getElementById('btn-logout');
 
   function checkAuth() {
-    const isAuth = sessionStorage.getItem('twizie_admin_auth') === 'true';
-    if (isAuth) {
-      if (loginScreen) loginScreen.style.display = 'none';
-      loadProductsList();
-    } else {
-      if (loginScreen) loginScreen.style.display = 'flex';
-      if (passInput) passInput.focus();
+    if (sessionStorage.getItem('twizie_admin_auth') !== 'true') {
+      window.location.replace('login.html');
+      return;
     }
-  }
-
-  if (loginForm) {
-    loginForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const entered = passInput.value.trim();
-      if (entered === ADMIN_PASS || entered === 'twizie' || entered === 'peace') {
-        sessionStorage.setItem('twizie_admin_auth', 'true');
-        loginError.style.display = 'none';
-        loginScreen.style.display = 'none';
-        showToast('✿ Welcome, Twizie!');
-        loadProductsList();
-      } else {
-        loginError.style.display = 'block';
-        passInput.value = '';
-        passInput.focus();
-      }
-    });
+    loadProductsList();
   }
 
   if (btnLogout) {
     btnLogout.addEventListener('click', () => {
       sessionStorage.removeItem('twizie_admin_auth');
-      checkAuth();
+      window.location.replace('login.html');
     });
   }
 

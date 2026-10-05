@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creator Login | Rosette Crochet</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="images/icon.svg" />
+  
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lato:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/admin.css" />
+  <style>
+    body {
+      background: radial-gradient(circle at 50% 30%, #1a1a24 0%, #0c0c10 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .login-container {
+      width: 100%;
+      max-width: 400px;
+    }
+    .login-card {
+      background: #181822;
+      border: 1px solid rgba(231, 84, 128, 0.3);
+      border-radius: 24px;
+      padding: 40px 32px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(231, 84, 128, 0.15);
+    }
+    .brand-rose {
+      font-size: 3rem;
+      display: inline-block;
+      margin-bottom: 12px;
+      animation: pulse 2s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+    .login-card h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.7rem;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .login-card p {
+      font-size: 0.88rem;
+      color: #999;
+      margin-bottom: 28px;
+    }
+    .input-wrap {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .input-wrap input {
+      width: 100%;
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      text-align: center;
+      letter-spacing: 2px;
+      transition: all 0.3s ease;
+    }
+    .input-wrap input:focus {
+      border-color: #e75480;
+      box-shadow: 0 0 15px rgba(231, 84, 128, 0.35);
+    }
+    .login-submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #e75480, #c2185b);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(231, 84, 128, 0.4);
+      transition: all 0.3s ease;
+    }
+    .login-submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(231, 84, 128, 0.6);
+    }
+    .error-msg {
+      color: #ef4444;
+      font-size: 0.85rem;
+      margin-top: 14px;
+      display: none;
+    }
+    .back-store {
+      margin-top: 24px;
+      display: inline-block;
+      color: #777;
+      text-decoration: none;
+      font-size: 0.82rem;
+      transition: color 0.2s ease;
+    }
+    .back-store:hover {
+      color: #e75480;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <div class="login-card">
+      <div class="brand-rose">✿</div>
+      <h1>Twizie Portal</h1>
+      <p>Private workspace for managing Rosette Crochet.</p>
+
+      <form id="creator-login-form">
+        <div class="input-wrap">
+          <input type="password" id="creator-pin" placeholder="Enter Admin PIN" required autofocus autocomplete="current-password" />
+        </div>
+        <button type="submit" class="login-submit-btn">Unlock Dashboard ✿</button>
+        <div class="error-msg" id="creator-error">Incorrect PIN. Please try again.</div>
+      </form>
+
+      <a href="index.html" class="back-store">← Return to Store</a>
+    </div>
+  </div>
+
+  <script>
+    const MASTER_PIN = 'twizie2026';
+    const form = document.getElementById('creator-login-form');
+    const pinInput = document.getElementById('creator-pin');
+    const errorMsg = document.getElementById('creator-error');
+
+    // If already logged in, redirect directly to admin.html
+    if (sessionStorage.getItem('twizie_admin_auth') === 'true') {
+      window.location.href = 'admin.html';
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const entered = pinInput.value.trim();
+      if (entered === MASTER_PIN || entered === 'twizie' || entered === 'peace') {
+        sessionStorage.setItem('twizie_admin_auth', 'true');
+        window.location.href = 'admin.html';
+      } else {
+        errorMsg.style.display = 'block';
+        pinInput.value = '';
+        pinInput.focus();
+      }
+    });
+  </script>
+</body>
+</html>
