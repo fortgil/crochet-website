@@ -714,6 +714,45 @@ document.addEventListener('DOMContentLoaded', () => {
   renderProducts();
   updateItemDropdown();
 
+  async function syncProductsFromSupabase() {
+    if (typeof supabaseClient === 'undefined' || !supabaseClient) return;
+    try {
+      const { data, error } = await supabaseClient
+        .from('products')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.warn('[Supabase] Live sync error:', error);
+        return;
+      }
+
+      if (data && data.length > 0) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        renderProducts();
+        updateItemDropdown();
+        console.log('[Supabase] Products synced live from cloud:', data.length);
+      }
+    } catch (err) {
+      console.warn('[Supabase] Sync failed:', err);
+    }
+  }
+
+  syncProductsFromSupabase();
+
+  if (typeof supabaseClient !== 'undefined' && supabaseClient) {
+    try {
+      supabaseClient
+        .channel('public:products')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'products' }, () => {
+          syncProductsFromSupabase();
+        })
+        .subscribe();
+    } catch (e) {
+      console.warn('[Supabase] Realtime error:', e);
+    }
+  }
+
   // ── 10. FAQ ACCORDION ───────────────────────────────────────────────
   document.querySelectorAll('.faq-question').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -780,6 +819,72 @@ document.addEventListener('DOMContentLoaded', () => {
   if (lightboxOverlay) lightboxOverlay.addEventListener('click', closeLightbox);
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeLightbox();
+  });
+
+  // ── 9. PROGRESSIVE WEB APP (PWA) SUPPORT ───────────────────────────
+  let deferredPrompt = null;
+  const pwaBanner = document.getElementById('pwa-install-banner');
+  const pwaInstallBtn = document.getElementById('pwa-install-action');
+  const pwaDismissBtn = document.getElementById('pwa-dismiss-action');
+  const navInstallBtn = document.getElementById('nav-install-btn');
+
+  // Register Service Worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then((reg) => {
+          console.log('[PWA] Service Worker registered with scope:', reg.scope);
+        })
+        .catch((err) => {
+          console.warn('[PWA] Service Worker registration failed:', err);
+        });
+    });
+  }
+
+  // Handle Before Install Prompt
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+
+    if (navInstallBtn) navInstallBtn.style.display = 'inline-flex';
+
+    if (!sessionStorage.getItem('twizie_pwa_dismissed')) {
+      setTimeout(() => {
+        if (pwaBanner && deferredPrompt) {
+          pwaBanner.classList.add('show');
+        }
+      }, 3000);
+    }
+  });
+
+  async function triggerInstallPrompt() {
+    if (!deferredPrompt) {
+      alert("To install Twizie Crochet on iPhone/iPad: Tap the Share button in Safari, then select 'Add to Home Screen' ✿");
+      return;
+    }
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`[PWA] Install prompt outcome: ${outcome}`);
+    deferredPrompt = null;
+    if (pwaBanner) pwaBanner.classList.remove('show');
+    if (navInstallBtn) navInstallBtn.style.display = 'none';
+  }
+
+  if (pwaInstallBtn) pwaInstallBtn.addEventListener('click', triggerInstallPrompt);
+  if (navInstallBtn) navInstallBtn.addEventListener('click', triggerInstallPrompt);
+
+  if (pwaDismissBtn) {
+    pwaDismissBtn.addEventListener('click', () => {
+      if (pwaBanner) pwaBanner.classList.remove('show');
+      sessionStorage.setItem('twizie_pwa_dismissed', 'true');
+    });
+  }
+
+  window.addEventListener('appinstalled', () => {
+    console.log('[PWA] App successfully installed!');
+    deferredPrompt = null;
+    if (pwaBanner) pwaBanner.classList.remove('show');
+    if (navInstallBtn) navInstallBtn.style.display = 'none';
   });
 
 });

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Twizie Admin | Rosette Crochet</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="images/icon.svg" />
+  
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lato:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+
+  <!-- ADMIN PASSCODE / LOGIN SCREEN -->
+  <div class="admin-login-screen" id="admin-login-screen">
+    <div class="login-card">
+      <div class="login-icon">✿</div>
+      <h2>Twizie Admin</h2>
+      <p>Enter your secret PIN or password to manage Rosette Crochet.</p>
+      <form class="login-form" id="admin-login-form">
+        <input type="password" id="admin-password-input" placeholder="Enter PIN / Password" required autofocus autocomplete="current-password" />
+        <button type="submit" class="login-btn">Unlock Portal ✿</button>
+        <div class="login-error" id="login-error">Incorrect PIN. Try again.</div>
+      </form>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="admin-header">
+    <div class="header-container">
+      <a href="index.html" class="admin-logo">
+        <span>✿</span> Twizie <span class="badge">Live Admin</span>
+      </a>
+      <div class="header-actions">
+        <a href="index.html" class="btn-sm btn-outline">👁️ View Store</a>
+        <button class="btn-sm btn-primary" id="btn-open-add-modal">➕ Add New Product</button>
+        <button class="btn-sm btn-outline" id="btn-logout" title="Lock Portal">🔒 Lock</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN DASHBOARD -->
+  <main class="admin-main">
+
+    <!-- STATS -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">🧶</div>
+        <div class="stat-info">
+          <h4>Total Items</h4>
+          <div class="stat-number" id="stat-total">0</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">👜</div>
+        <div class="stat-info">
+          <h4>Bags</h4>
+          <div class="stat-number" id="stat-bags">0</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">👒</div>
+        <div class="stat-info">
+          <h4>Hats &amp; Beanies</h4>
+          <div class="stat-number" id="stat-hats">0</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🎀</div>
+        <div class="stat-info">
+          <h4>Accessories</h4>
+          <div class="stat-number" id="stat-accessories">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTROLS & FILTER -->
+    <div class="controls-bar">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" placeholder="Search by name, category, or ID..." />
+      </div>
+      <div class="filter-tags">
+        <button class="filter-chip active" data-cat="all">All</button>
+        <button class="filter-chip" data-cat="bags">Bags</button>
+        <button class="filter-chip" data-cat="tops">Tops</button>
+        <button class="filter-chip" data-cat="hats">Hats &amp; Beanies</button>
+        <button class="filter-chip" data-cat="accessories">Accessories</button>
+      </div>
+    </div>
+
+    <!-- PRODUCT LIST GRID -->
+    <div class="product-admin-grid" id="product-admin-grid">
+      <!-- Injected via JavaScript -->
+    </div>
+
+  </main>
+
+  <!-- ADD / EDIT PRODUCT MODAL -->
+  <div class="admin-modal" id="product-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-title">Add New Product</h3>
+        <button class="modal-close" id="modal-close">&times;</button>
+      </div>
+
+      <form id="product-form">
+        <input type="hidden" id="prod-id" />
+
+        <div class="form-group">
+          <label for="prod-name">Product Name *</label>
+          <input type="text" id="prod-name" placeholder="e.g. Lavender Blossom Beanie" required />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="prod-category">Category *</label>
+            <select id="prod-category" required>
+              <option value="hats">Hats &amp; Beanies</option>
+              <option value="bags">Bags &amp; Totes</option>
+              <option value="tops">Tops &amp; Shrugs</option>
+              <option value="accessories">Accessories</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="prod-type">Catalog Section *</label>
+            <select id="prod-type" required>
+              <option value="ready-made">Ready-Made Product</option>
+              <option value="reference">Reference / Custom Design</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="prod-price">Price (KSh) *</label>
+            <input type="number" id="prod-price" min="0" step="50" placeholder="1500" required />
+          </div>
+
+          <div class="form-group">
+            <label for="prod-stock">Stock Quantity</label>
+            <input type="number" id="prod-stock" min="0" value="1" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="prod-status">Availability Status</label>
+          <select id="prod-status">
+            <option value="available">Available in Stock</option>
+            <option value="sold-out">Sold Out</option>
+            <option value="custom">Made to Order / Custom</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Product Photo</label>
+          <div class="file-upload-box" id="file-drop-area">
+            <p>📷 Tap to pick or take photo with phone</p>
+            <input type="file" id="prod-file-input" accept="image/*" style="display: none;" />
+          </div>
+          <input type="text" id="prod-image-url" placeholder="Or paste existing image path (e.g. images/BAG 1.jpg)" style="margin-top: 8px;" />
+          <img id="image-preview" class="img-preview-thumb" alt="Preview" />
+        </div>
+
+        <div class="form-group">
+          <label for="prod-desc">Description</label>
+          <textarea id="prod-desc" rows="3" placeholder="Describe the yarn, colors, style, fit..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-sm btn-primary" id="btn-save-product" style="width: 100%; padding: 12px; font-size: 1rem;">
+          Save Product ✿
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="admin-toast"></div>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

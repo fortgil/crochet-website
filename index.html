@@ -8,6 +8,16 @@
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://twizie-rosette-crochet.vercel.app/" />
 
+  <!-- Web App Manifest & Mobile PWA Meta -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#e75480" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Twizie Crochet" />
+  <link rel="apple-touch-icon" href="images/icon.svg" />
+  <link rel="icon" type="image/svg+xml" href="images/icon.svg" />
+
   <!-- Google Site Verification -->
   <meta name="google-site-verification" content="google012613bbcf5030c8" />
 
@@ -76,6 +86,9 @@
         <li><a href="#faq">FAQ</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+      <div class="nav-actions">
+        <button class="nav-install-btn" id="nav-install-btn" style="display:none;" title="Install App">📱 Install App</button>
+      </div>
       <button class="hamburger" id="hamburger" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
@@ -454,6 +467,7 @@
         <a href="#reviews">Reviews</a>
         <a href="#faq">FAQ</a>
         <a href="#contact">Contact</a>
+        <a href="admin.html" style="opacity: 0.6;">Admin ✿</a>
       </div>
       <p class="footer-copy">&copy; 2026 Rosette Crochet. All rights reserved. Handcrafted in Nairobi, Kenya.</p>
     </div>
@@ -476,6 +490,24 @@
     </div>
   </div>
 
+  <!-- PWA INSTALL BANNER -->
+  <div class="pwa-install-banner" id="pwa-install-banner" role="dialog" aria-label="Install App">
+    <div class="pwa-banner-left">
+      <img src="images/icon.svg" alt="Twizie Crochet App" class="pwa-banner-icon" />
+      <div class="pwa-banner-text">
+        <h4>Twizie | Rosette Crochet</h4>
+        <p>Install our app on your phone for easy ordering!</p>
+      </div>
+    </div>
+    <div class="pwa-banner-actions">
+      <button class="pwa-btn-install" id="pwa-install-action">Install</button>
+      <button class="pwa-btn-dismiss" id="pwa-dismiss-action" aria-label="Dismiss">&times;</button>
+    </div>
+  </div>
+
+  <!-- SUPABASE & MAIN SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

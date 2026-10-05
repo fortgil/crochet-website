@@ -1,0 +1,55 @@
+{
+  "name": "Twizie | Rosette Crochet",
+  "short_name": "Twizie Crochet",
+  "description": "Handmade crochet products, bespoke bags, tops, hats & custom accessories in Nairobi, Kenya.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#fff7f9",
+  "theme_color": "#e75480",
+  "categories": ["shopping", "lifestyle", "fashion"],
+  "icons": [
+    {
+      "src": "images/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "images/icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    },
+    {
+      "src": "images/BAG 2.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Ready-Made Items",
+      "short_name": "Ready-Made",
+      "description": "Browse available ready-made crochet pieces",
+      "url": "./index.html#ready-made-section",
+      "icons": [{ "src": "images/icon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Hats & Beanies",
+      "short_name": "Hats",
+      "description": "View handcrafted hats and beanies",
+      "url": "./index.html#reference-section",
+      "icons": [{ "src": "images/icon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Order on WhatsApp",
+      "short_name": "WhatsApp",
+      "description": "Chat directly with Twizie on WhatsApp",
+      "url": "https://wa.me/254710626156?text=Hi%20Twizie,%20I'm%20interested%20in%20placing%20a%20crochet%20order!",
+      "icons": [{ "src": "images/icon.svg", "sizes": "any" }]
+    }
+  ]
+}
