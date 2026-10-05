@@ -472,19 +472,21 @@
     </div>
   </footer>
 
-  <!-- LIGHTBOX MODAL -->
-  <div class="lightbox-modal" id="lightbox-modal">
+  <!-- LIGHTBOX FULLSCREEN IMAGE VIEWER -->
+  <div class="lightbox-modal" id="lightbox-modal" role="dialog" aria-label="Product Image Preview">
     <div class="lightbox-overlay" id="lightbox-overlay"></div>
     <div class="lightbox-content">
       <button class="lightbox-close" id="lightbox-close" aria-label="Close image preview">&times;</button>
-      <div class="lightbox-image-container">
+      <div class="lightbox-image-container" id="lightbox-img-container" title="Click to zoom in/out">
         <img id="lightbox-image" src="" alt="Product preview" />
       </div>
       <div class="lightbox-info">
-        <h3 id="lightbox-title"></h3>
-        <div class="lightbox-price" id="lightbox-price"></div>
-        <p id="lightbox-desc"></p>
-        <button class="btn btn-primary btn-sm" id="lightbox-order-btn">Order on WhatsApp ✿</button>
+        <div class="lightbox-info-text">
+          <h3 id="lightbox-title"></h3>
+          <div class="lightbox-price" id="lightbox-price"></div>
+          <p id="lightbox-desc" class="lightbox-desc"></p>
+        </div>
+        <button class="btn btn-primary" id="lightbox-order-btn" style="white-space: nowrap; padding: 12px 22px;">Order on WhatsApp ✿</button>
       </div>
     </div>
   </div>

@@ -353,20 +353,19 @@ document.addEventListener('DOMContentLoaded', () => {
       
       return `
         <div class="product-card ${type} fade-in" data-category="${p.category}">
-          <div class="product-img-wrap">
-            <div class="product-img ${!hasImg && !isLocalImg ? 'placeholder-img' : ''}" ${hasImg || isLocalImg ? `onclick="openProductLightbox('${p.id}')" style="cursor:zoom-in;" title="Click to view photo"` : ''}>
-              ${hasImg
-                ? `<img src="${p.image}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius);" />`
-                : isLocalImg
-                ? `<img src="${p.image}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius);" />`
+          <div class="product-img-wrap" onclick="openProductLightbox('${p.id}')" title="Click to view full photo">
+            ${p.image ? `<div class="product-zoom-badge">🔍 View Full</div>` : ''}
+            <div class="product-img ${!hasImg && !isLocalImg ? 'placeholder-img' : ''}">
+              ${hasImg || isLocalImg
+                ? `<img src="${p.image}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius);" loading="lazy" />`
                 : icon}
             </div>
-            <div class="product-overlay">
+            <div class="product-overlay" onclick="event.stopPropagation()">
               <button class="btn btn-primary btn-sm" onclick="${buttonAction}">${buttonText}</button>
             </div>
           </div>
           <div class="product-info">
-            <h3>${p.name}</h3>
+            <h3 onclick="openProductLightbox('${p.id}')" style="cursor:pointer;" title="Click to view photo">${p.name}</h3>
             <div class="product-price">KSh ${Number(p.price).toLocaleString('en-KE')}</div>
             <p class="product-description">${p.description}</p>
             <div class="product-status-label">${type === 'ready-made' ? '✓ Available' : '🎨 Made on Request'}</div>
