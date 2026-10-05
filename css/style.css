@@ -1,4 +1,4 @@
-/* ========================================
+﻿/* ========================================
    ROSETTE CROCHET — STYLESHEET
    Theme: Black · White · Deep Pink/Magenta
    ======================================== */
@@ -1709,3 +1709,55 @@ img { max-width: 100%; display: block; }
 }
 
 
+
+/* ========================================
+   PROMOTIONAL MARQUEE
+   ======================================== */
+.promo-marquee {
+  background: linear-gradient(135deg, var(--pink) 0%, #d63384 100%);
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  z-index: 998;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.marquee-content {
+  display: inline-block;
+  animation: scroll-left 25s linear infinite;
+  padding: 12px 0;
+}
+
+.marquee-content span {
+  display: inline-block;
+  padding-right: 3rem;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Pause animation on hover */
+.promo-marquee:hover .marquee-content {
+  animation-play-state: paused;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .promo-marquee {
+    font-size: 0.8rem;
+  }
+  
+  .marquee-content {
+    animation-duration: 20s;
+  }
+}
