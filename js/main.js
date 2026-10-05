@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
       
       return `
         <div class="product-card ${type} fade-in" data-category="${p.category}">
-          <div class="product-img-wrap" onclick="openProductLightbox('${p.id}')" title="Click to view full photo">
+          <div class="product-img-wrap" data-product-id="${p.id}" class="clickable-image" title="Click to view full photo">
             ${p.image ? `<div class="product-zoom-badge">🔍 View Full</div>` : ''}
             <div class="product-img ${!hasImg && !isLocalImg ? 'placeholder-img' : ''}">
               ${hasImg || isLocalImg
@@ -365,7 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
           </div>
           <div class="product-info">
-            <h3 onclick="openProductLightbox('${p.id}')" style="cursor:pointer;" title="Click to view photo">${p.name}</h3>
+            <h3 data-product-id="${p.id}" class="clickable-title" style="cursor:pointer;" title="Click to view photo">${p.name}</h3>
             <div class="product-price">KSh ${Number(p.price).toLocaleString('en-KE')}</div>
             <p class="product-description">${p.description}</p>
             <div class="product-status-label">${type === 'ready-made' ? '✓ Available' : '🎨 Made on Request'}</div>
@@ -887,6 +887,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+
+
+
 
 
 
