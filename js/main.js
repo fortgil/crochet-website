@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
       
       return `
         <div class="product-card ${type} fade-in" data-category="${p.category}">
-          <div class="product-img-wrap" data-product-id="${p.id}" class="clickable-image" title="Click to view full photo">
+          <div class="product-img-wrap clickable-image" data-product-id="${p.id}" title="Click to view full photo">
             ${p.image ? `<div class="product-zoom-badge">🔍 View Full</div>` : ''}
             <div class="product-img ${!hasImg && !isLocalImg ? 'placeholder-img' : ''}">
               ${hasImg || isLocalImg
@@ -887,6 +887,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+
 
 
 
