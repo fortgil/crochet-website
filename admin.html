@@ -167,6 +167,24 @@
     </div>
   </div>
 
+  <!-- LIGHTBOX FULLSCREEN IMAGE VIEWER -->
+  <div class="lightbox-modal" id="admin-lightbox-modal" role="dialog" aria-label="Product Image Preview">
+    <div class="lightbox-overlay" id="admin-lightbox-overlay"></div>
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="admin-lightbox-close" aria-label="Close image preview">&times;</button>
+      <div class="lightbox-image-container" id="admin-lightbox-img-container" title="Click to zoom in/out">
+        <img id="admin-lightbox-image" src="" alt="Product preview" />
+      </div>
+      <div class="lightbox-info">
+        <div class="lightbox-info-text">
+          <h3 id="admin-lightbox-title"></h3>
+          <div class="lightbox-price" id="admin-lightbox-price"></div>
+          <p id="admin-lightbox-desc" class="lightbox-desc"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- TOAST NOTIFICATION -->
   <div class="toast" id="admin-toast"></div>
 

@@ -108,10 +108,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       return `
         <div class="admin-prod-card" data-id="${p.id}">
-          <div class="card-img-wrap">
+          <div class="card-img-wrap" onclick="openAdminLightbox('${p.id}')" title="Click to view full photo">
             <img src="${p.image || 'images/BAG 2.jpg'}" alt="${p.name}" onerror="this.src='images/BAG 2.jpg';" />
             <span class="card-type-badge">${isCustom ? 'Custom Reference' : 'Ready-Made'}</span>
             <span class="card-status-badge ${statusClass}">${statusLabel}</span>
+            <span class="admin-zoom-badge">🔍 View Full</span>
           </div>
           <div class="card-body">
             <h4 class="card-title">${p.name}</h4>
@@ -401,6 +402,53 @@ document.addEventListener('DOMContentLoaded', () => {
       toast.style.display = 'none';
     }, 3000);
   }
+
+  // ── 10. ADMIN LIGHTBOX IMAGE VIEWER ──────────────────────────────
+  const adminLightbox = document.getElementById('admin-lightbox-modal');
+  const adminLightboxImg = document.getElementById('admin-lightbox-image');
+  const adminLightboxTitle = document.getElementById('admin-lightbox-title');
+  const adminLightboxPrice = document.getElementById('admin-lightbox-price');
+  const adminLightboxDesc = document.getElementById('admin-lightbox-desc');
+  const adminLightboxClose = document.getElementById('admin-lightbox-close');
+  const adminLightboxOverlay = document.getElementById('admin-lightbox-overlay');
+  const adminImgContainer = document.getElementById('admin-lightbox-img-container');
+
+  window.openAdminLightbox = (productId) => {
+    const p = allProducts.find(item => item.id === productId);
+    if (!p || !p.image) return;
+
+    if (adminLightboxImg) {
+      adminLightboxImg.src = p.image;
+      adminLightboxImg.alt = p.name;
+    }
+    if (adminLightboxTitle) adminLightboxTitle.textContent = p.name;
+    if (adminLightboxPrice) adminLightboxPrice.textContent = `KSh ${Number(p.price).toLocaleString('en-KE')}`;
+    if (adminLightboxDesc) adminLightboxDesc.textContent = p.description || '';
+
+    if (adminImgContainer) {
+      adminImgContainer.classList.remove('zoomed');
+      adminImgContainer.onclick = () => adminImgContainer.classList.toggle('zoomed');
+    }
+
+    if (adminLightbox) {
+      adminLightbox.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  function closeAdminLightbox() {
+    if (adminLightbox) {
+      adminLightbox.style.display = 'none';
+      document.body.style.overflow = '';
+      if (adminImgContainer) adminImgContainer.classList.remove('zoomed');
+    }
+  }
+
+  if (adminLightboxClose) adminLightboxClose.addEventListener('click', closeAdminLightbox);
+  if (adminLightboxOverlay) adminLightboxOverlay.addEventListener('click', closeAdminLightbox);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeAdminLightbox();
+  });
 
   // Check auth on startup
   checkAuth();
