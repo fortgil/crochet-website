@@ -1,4 +1,4 @@
-﻿/* ========================================
+/* ========================================
    ROSETTE CROCHET — STYLESHEET
    Theme: Black · White · Deep Pink/Magenta
    ======================================== */
@@ -569,14 +569,14 @@ img { max-width: 100%; display: block; }
   position: absolute;
   inset: 0;
   background: rgba(13, 13, 13, 0.7);
-  display: flex;
+  display: none !important;
   align-items: center;
   justify-content: center;
   opacity: 0;
   transition: opacity var(--transition);
   padding: 16px;
 }
-.product-img-wrap:hover .product-overlay { opacity: 1; }
+.product-img-wrap:hover .product-overlay { display: none; }
 
 .product-info {
   padding: 20px;
@@ -608,6 +608,44 @@ img { max-width: 100%; display: block; }
 
 .product-card.reference .product-status-label {
   color: var(--pink);
+}
+
+.product-img-wrap {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-img-wrap .product-img img {
+  transition: transform 0.4s ease;
+}
+
+.product-img-wrap:hover .product-img img {
+  transform: scale(1.05);
+}
+
+.product-card-actions {
+  margin-top: 14px;
+}
+
+.btn-card-order {
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  border-radius: 20px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: 0 4px 12px rgba(231, 84, 128, 0.35);
+  transition: all var(--transition);
+}
+
+.btn-card-order:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(231, 84, 128, 0.55);
 }
 
 /* --- CONTACT --- */

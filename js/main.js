@@ -1,4 +1,4 @@
-﻿// ========================================
+// ========================================
 //  ROSETTE CROCHET — MAIN JAVASCRIPT
 // ========================================
 
@@ -353,22 +353,24 @@ document.addEventListener('DOMContentLoaded', () => {
       
       return `
         <div class="product-card ${type} fade-in" data-category="${p.category}">
-          <div class="product-img-wrap clickable-image" data-product-id="${p.id}" title="Click to view full photo">
+          <div class="product-img-wrap" onclick="openProductLightbox('${p.id}')" title="Click to view full photo">
             ${p.image ? `<div class="product-zoom-badge">🔍 View Full</div>` : ''}
             <div class="product-img ${!hasImg && !isLocalImg ? 'placeholder-img' : ''}">
               ${hasImg || isLocalImg
-                ? `<img src="${p.image}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius);" loading="lazy" />`
+                ? `<img src="${p.image}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover;" loading="lazy" />`
                 : icon}
-            </div>
-            <div class="product-overlay" onclick="event.stopPropagation()">
-              <button class="btn btn-primary btn-sm" onclick="${buttonAction}">${buttonText}</button>
             </div>
           </div>
           <div class="product-info">
-            <h3 data-product-id="${p.id}" class="clickable-title" style="cursor:pointer;" title="Click to view photo">${p.name}</h3>
+            <h3 onclick="openProductLightbox('${p.id}')" style="cursor:pointer;" title="Click to view full photo">${p.name}</h3>
             <div class="product-price">KSh ${Number(p.price).toLocaleString('en-KE')}</div>
             <p class="product-description">${p.description}</p>
             <div class="product-status-label">${type === 'ready-made' ? '✓ Available' : '🎨 Made on Request'}</div>
+            <div class="product-card-actions">
+              <button class="btn btn-primary btn-sm btn-card-order" onclick="${buttonAction}">
+                ${type === 'ready-made' ? 'Order on WhatsApp ✿' : 'Request Custom Design ✿'}
+              </button>
+            </div>
           </div>
         </div>
       `;
@@ -802,7 +804,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (lightbox) {
-      lightbox.style.display = 'block';
+      lightbox.style.display = 'flex';
       document.body.style.overflow = 'hidden';
     }
   };
